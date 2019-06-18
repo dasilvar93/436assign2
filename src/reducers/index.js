@@ -1,31 +1,23 @@
 import { combineReducers } from 'redux';
 import {
     ADD,
-    CLEAR
+    CLEAR,
+    LIST
 }from '../actions'
 
-const initialState = []
-
-function list(state = initialState, action){
+function list(state = [], action){
     switch(action.type){
         case ADD:
-            return Object.assign( {}, state, {
-                list: [
-                    ...state.list,   //is ... needed?
-                    {
-                        text: action.payload, 
-                    }
-                ]
-            })
+            return [...state, action.text];
+        case LIST:
+            return action.data;
         case CLEAR:
-            return initialState
+            return [];
         default: 
-            return state
+            return state;
     }    
 }
 
-const listApp = combineReducers({
-    list
-})
+const listApp = combineReducers({list});
 
 export default listApp
