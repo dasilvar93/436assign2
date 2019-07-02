@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:4000/";
+const URL = "http://localhost:4000/message";
 
 export function getList() {
     return axios
@@ -12,7 +12,7 @@ export function getList() {
 
 export function postList(data) {
     return axios
-        .post(URL, data)
+        .post(URL + "/add", data)
         .catch(function (error) {
             console.log(error);
         })
