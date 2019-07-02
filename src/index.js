@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import reducers from './reducers';
+import listApp from './reducers';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 
 ReactDOM.render(
-    <Provider store={createStore(reducers)}>
+    <Provider store={createStore(listApp)}>
         <App />
     </Provider>, 
 

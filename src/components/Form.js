@@ -1,20 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ADD } from '../actions';
-
+import { addToList } from '../actions';
+import {postList} from "../server/Api";
+import {replaceList} from "../actions";
 
 class Form extends React.Component {
 
     constructor(props){
         super(props);
+        //this.setState({value: ""});
         this.state = {value: ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(event){
-        dispatch(ADD(this.state.value))
         event.preventDefault();
+
+        postList({text: this.state.value})
+            .then((response) => {
+                this.props.replaceList(response.data)
+            })
+
+        //this.props.addToList(this.state.value);
+        this.setState({value: ""})
     }
 
     handleChange(event){
@@ -34,9 +43,12 @@ class Form extends React.Component {
     }
 }
 
-const mapStatesToProps = (state) => {
-    return {value: state.value}
-}
+// const mapDispatchToProps = dispatch => ({
+//     items: value => dispatch(addToList(value))
+// // })
+// const mapStatesToProps = (state) => {
+//     return {value: state.value}
+// }
 
-export default connect(mapStatesToProps)(Form);
+export default connect(null, {replaceList})(Form);
 //export default Form;
